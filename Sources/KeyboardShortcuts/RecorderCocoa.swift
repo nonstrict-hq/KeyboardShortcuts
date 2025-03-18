@@ -27,7 +27,7 @@ extension KeyboardShortcuts {
 	```
 	*/
 	public final class RecorderCocoa: NSSearchField, NSSearchFieldDelegate {
-		private let minimumWidth = 130.0
+		private let minimumWidth = 110.0
 		private let onChange: ((_ shortcut: Shortcut?) -> Void)?
 		private var canBecomeKey = false
 		private var eventMonitor: LocalEventMonitor?
@@ -91,7 +91,7 @@ extension KeyboardShortcuts {
 			super.init(frame: .zero)
 			self.delegate = self
 			self.placeholderString = "record_shortcut".localized
-			self.alignment = .center
+			self.alignment = .left
 			(cell as? NSSearchFieldCell)?.searchButtonCell = nil
 
 			self.wantsLayer = true
@@ -134,7 +134,6 @@ extension KeyboardShortcuts {
 
 		private func endRecording() {
 			eventMonitor = nil
-			placeholderString = "record_shortcut".localized
 			showsCancelButton = !stringValue.isEmpty
 			restoreCaret()
 			KeyboardShortcuts.isPaused = false
@@ -208,7 +207,6 @@ extension KeyboardShortcuts {
 				return shouldBecomeFirstResponder
 			}
 
-			placeholderString = "press_shortcut".localized
 			showsCancelButton = !stringValue.isEmpty
 			hideCaret()
 			KeyboardShortcuts.isPaused = true // The position here matters.
